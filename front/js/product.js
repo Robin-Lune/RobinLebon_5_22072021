@@ -43,7 +43,7 @@ btn.addEventListener('click', () => {
       let storedCart = JSON.parse(localStorage.Cart);
       console.log(storedCart);
       
-
+    alert('Product added to cart');      
 
   };
 
