@@ -97,20 +97,24 @@ let productsList = async () => {
 productsList();
 
 // Change quantity of product in cart, update localStorage and display new total price and total quantity
+// Check if quantity is a valid number
 const changeQuantity = (e) => {
     console.log(cart);
-    let idTarget = e.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
-    console.log(idTarget + " " +"QTTY: "+ e.target.value);
-    let data = cart.find(data => data.includes(idTarget));
-    if (data) {
-      let index = cart.indexOf(data);
-      cart[index] = idTarget + ' ' + e.target.value;
-    };
-    console.log('New Cart :' + cart);
-    //update localStorage.Cart
-    localStorage.setItem('Cart', JSON.stringify(cart));
-    window.location.reload();
-    
+    if (e.target.value < 1 || e.target.value > 100){
+        alert("Quantité non valide!")
+    } else {
+        let idTarget = e.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
+        console.log(idTarget + " " +"QTTY: "+ e.target.value);
+        let data = cart.find(data => data.includes(idTarget));
+        if (data) {
+        let index = cart.indexOf(data);
+        cart[index] = idTarget + ' ' + e.target.value;
+        };
+        console.log('New Cart :' + cart);
+        //update localStorage.Cart
+        localStorage.setItem('Cart', JSON.stringify(cart));
+        window.location.reload();
+    }
 }
 
 // Delete product in cart, update localStorage and display new total price and total quantity
@@ -129,5 +133,35 @@ const deleteItem =(e)=> {
     //update localStorage.Cart
     localStorage.setItem('Cart', JSON.stringify(cart));
     window.location.reload();
+}
+
+
+// ----------FORMS VALIDATOR---------
+
+const firstName =  document.getElementById('firstName').value;
+const lastName =  document.getElementById('lastName').value;
+const adress =  document.getElementById('address').value;
+const city =  document.getElementById('city').value;
+const email = document.getElementById('email').value;
+const order = document.getElementById('order');
+
+order.addEventListener("submit", function(event){
+    event.preventDefault()
+    lettersAndSpaceCheck(firstName)
+  });
+
+// Check if name contain only space and letters
+function lettersAndSpaceCheck(name)
+ {
+    var regEx = /^[a-z][a-z\s]*$/;
+    if(name.match(regEx))
+      {
+       return true;
+      }
+    else
+      {
+      alert("N'entrez que des lettres et des espaces s'il vous plait.");
+      return false;
+      }
  }
 

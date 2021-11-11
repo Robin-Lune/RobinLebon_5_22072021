@@ -18,15 +18,15 @@ console.log(id);
 
 
 btn.addEventListener('click', () => {
-  // if clr.value equal of empty or undefined, alert "please select a color"
-  // if qtty.value equal of empty or undefined, alert "please select a quantity"
+  // if clr.value equal of empty or undefined, alert "Sélectionnez une couleur s'il vous plait"
+  // if qtty.value equal of empty or undefined, alert "Sélectionnez une quantité valide s'il vous plait"
   // else push product info to array, if product id and clr.value are the same, increment qtty value
 
   // console.log(cart);
   if (clr.value === '' || clr.value === undefined) {
-      alert('Please select a color');
+      alert("Sélectionnez une couleur s'il vous plait");
    } else if ( qtty.value < 1 || qtty.value > 100) {
-    alert('Please select a quantity');
+    alert("Sélectionnez une quantité valide s'il vous plait");
    } else {
 
     let data = cart.find(data => data.includes(id + ' ' + clr.value));
