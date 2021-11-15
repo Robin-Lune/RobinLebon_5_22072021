@@ -25,7 +25,9 @@ const displayProducts = (articles) => {
 
 
 const main = async () => {
- getProducts().then(displayProducts);
+ getProducts().then((response) => {
+   displayProducts(response);
+ });
 };
 
 main();
