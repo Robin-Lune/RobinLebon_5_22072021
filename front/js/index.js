@@ -7,7 +7,6 @@ async function getProducts() {
   return response;
 }
 
-
 // display JSON in HTML
 const displayProducts = (articles) => {
   console.log(articles);
@@ -23,21 +22,15 @@ const displayProducts = (articles) => {
   }
 };
 
-
 const main = async () => {
- getProducts().then((response) => {
-   displayProducts(response);
- });
+  getProducts()
+    .then((response) => {
+      displayProducts(response);
+    })
+    .catch((error) => {
+      console.log(error)
+      alert("Lancer le backend || le port 3000 est déja utilisé")
+    });
 };
 
 main();
-
-
-
-
-
-
-
-
-
-
