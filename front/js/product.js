@@ -18,7 +18,7 @@ btn.addEventListener("click", () => {
   // if qtty.value equal of empty or undefined, alert "Sélectionnez une quantité valide s'il vous plait"
   // else push product info to array, if product id and clr.value are the same, increment qtty value
 
-  // console.log(cart);
+      // console.log(cart);
   if (clr.value === "" || clr.value === undefined) {
     alert("Sélectionnez une couleur s'il vous plait");
   } else if (qtty.value < 1 || qtty.value > 100) {
@@ -53,17 +53,17 @@ async function getProduct() {
     method: "GET",
   });
   let response = await rep.json();
-  // console.log(response);
+    // console.log(response);
   return response;
 }
 
 // display JSON in the HTML
 const main = () => {
   getProduct().then((product) => {
-    console.log(product);
+      console.log(product);
     let blocImage = `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
     let blocColors = product.colors.map((color) => {
-      console.log(color);
+        console.log(color);
       // console.log(index)
       return `<option value="${color}">${color}</option>`;
     });

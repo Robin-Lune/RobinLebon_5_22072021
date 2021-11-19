@@ -147,27 +147,26 @@ const city = document.getElementById("city");
 const email = document.getElementById("email");
 const order = document.getElementById("order");
 
-// Check if string contain only space and letters (except for special characters)
+// Check if string contain only letters 
 const lettersAndSpaceCheck = (data) => {
-  const regEx1 =
-    / [^A-Za-zéèêëçàäâôòöùûüìîï] \`|\"|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\<|\,|\.|\>|\?|\/|\""|\;|\:|\s /g;
-  if (data.match(regEx1)) {
+  if (/^[A-zÀ-ú\s]+$/.test(data)) {
+    console.log(`${data} : true`)
     return true;
   } else {
+    console.log(`${data} : false`)
     return false;
   }
 };
 // Check if string contain space, letters and numbers (except for special characters)
 const lettersAndNumbersCheck = (data) => {
-  //regex for letters space and numbers
-  const regEx2 =
-    / [^A-Za-z0-9éèêëçàäâôòöùûüìîï] \`|\"|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\<|\,|\.|\>|\?|\/|\""|\;|\:|\s /g;
-  if (data.match(regEx2)) {
+  if (/^[A-zÀ-ú0-9\s]+$/.test(data)) {
+    console.log(`${data} : true`)
     return true;
   } else {
+    console.log(`${data} : false`)
     return false;
   }
-};
+}
 // check email validity
 const emailValidation = (data) => {
   if (
@@ -182,23 +181,25 @@ const emailValidation = (data) => {
   }
 };
 
-// function to check all inputs
+
+
+// function to check all inputs and send error message if needed
 const checkFormValidity = () => {
-  if (lettersAndSpaceCheck(lastName.value)) {
+  if (lettersAndSpaceCheck(lastName.value) === false) {
     document.getElementById("lastNameErrorMsg").innerText = "Nom non valide";
   }
-  if (lettersAndSpaceCheck(firstName.value)) {
+  if (lettersAndSpaceCheck(firstName.value) === false) {
     document.getElementById("firstNameErrorMsg").innerText =
       "Prénom non valide";
   }
-  if (lettersAndNumbersCheck(address.value)) {
+  if (lettersAndNumbersCheck(address.value) === false) {
     document.getElementById("addressErrorMsg").innerText =
       "Addresse non valide";
   }
-  if (lettersAndNumbersCheck(city.value)) {
+  if (lettersAndNumbersCheck(city.value) === false) {
     document.getElementById("cityErrorMsg").innerText = "Ville non valide";
   }
-  if (emailValidation(email.value) != true) {
+  if (emailValidation(email.value) === false) {
     document.getElementById("emailErrorMsg").innerText = "Email non valide";
   }
 };
@@ -206,34 +207,36 @@ const checkFormValidity = () => {
 // EVENTLISTENER & prevent event default on submit button
 order.addEventListener("click", function (event) {
   event.preventDefault();
+  //Reset error messages
   document.getElementById("lastNameErrorMsg").innerText = "";
   document.getElementById("firstNameErrorMsg").innerText = "";
   document.getElementById("addressErrorMsg").innerText = "";
   document.getElementById("cityErrorMsg").innerText = "";
   document.getElementById("emailErrorMsg").innerText = "";
-  checkFormValidity();
   // check all inputs are filled
   if (
     !(
-      firstName.value.length > 1 &&
-      lastName.value.length > 1 &&
-      emailValidation(email.value) &&
-      address.value.length > 6 &&
-      city.value.length > 1
+      firstName.value.length > 2 &&
+      lastName.value.length > 2 &&
+      email.value.length > 2 &&
+      address.value.length > 2 &&
+      city.value.length > 2
     )
   ) {
     alert("Veuillez remplir les champs correctements");
     return;
-  }
+  };
+  //check input and send error message if needed
+  checkFormValidity();
   // if all inputs are filled correctly, run the function to send the order
   if (
-    lettersAndSpaceCheck(lastName.value) != true &&
-    lettersAndSpaceCheck(firstName.value) != true &&
-    lettersAndNumbersCheck(address.value) != true &&
-    lettersAndNumbersCheck(city.value) != true &&
-    emailValidation(email.value)
+    lettersAndSpaceCheck(lastName.value) === true &&
+    lettersAndSpaceCheck(firstName.value) === true &&
+    lettersAndNumbersCheck(address.value) === true &&
+    lettersAndNumbersCheck(city.value) === true &&
+    emailValidation(email.value) === true
   ) {
-    console.log("Formulaire valide");
+      // console.log("Formulaire valide");
 
     /**
      *
@@ -276,7 +279,7 @@ order.addEventListener("click", function (event) {
       .then((response) => {
         localStorage.removeItem("Cart");
         window.location.href = `./confirmation.html?orderId=${response.orderId}`;
-        console.log(response);
+          // console.log(response);
       })
       .catch((error) => {
         console.log(error);
