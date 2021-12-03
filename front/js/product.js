@@ -9,8 +9,8 @@ if (localStorage.getItem("Cart")) {
 }
 
 //get id from url
-var url = window.location.href;
-var id = url.substring(url.lastIndexOf("=") + 1);
+let params = (new URL(document.location)).searchParams;
+var id = params.get('id');
 console.log(id);
 
 btn.addEventListener("click", () => {

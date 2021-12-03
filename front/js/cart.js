@@ -22,7 +22,7 @@ if (cart.length === 0) {
 // console.log(cart);
 
 let productsList = async () => {
-  // for each product in cart array display product in cart
+  // for each product in cart array display product in html page
   cart.forEach(function (product) {
     let idProduct = product.id;
     let ClrProduct = product.clr;
